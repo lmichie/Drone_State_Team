@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-
+import sys
+import re
 import os
+import requests
 
-with open('flightlog.txt', 'r') as f:
-	for line in f:
-		line = line.strip()
+url = 'https://yld.me/raw/bUAw.txt'
+data = {}
 
+response = requests.get(url)
+print(response.text)
