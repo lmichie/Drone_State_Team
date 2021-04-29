@@ -11,7 +11,6 @@ DATA = {
         "FLTMODE1": 6.0,
         "FLTMODE1": 6.0},
     "Parameter":{
-        "Temperature":[12.0,3.0,4.0,5.0,5.0],
         "Altitude" : [100,200,200,300,400,401,300,200,20]
     }
 }
