@@ -11,11 +11,17 @@ DATA = {
         "FLTMODE1": 6.0,
         "FLTMODE1": 6.0},
     "Parameter":{
-        "Altitude" : [100,200,200,300,400,401,300,200,20]
+        "Altitude" : [100,200,200,300,400,401,300,200,20],
+        "Temperature": [100,200,200,300,400,401,300,200,20],
+        "Battery" : [100,200,200,300,400,401,300,200,20],
     }
 }
 
 path_drone = "drone.jpg"
+alt = "Altitude.JPG"
+volt = "Battery.JPG"
+temperature = "Temperature.JPG"
+
 
 
 # Make an tkinter window instance Tk()
@@ -41,14 +47,19 @@ def draw():
         if k == var_bg and v:
             #messagebox.showinfo("It works!","Eligible parameter to draw")
             check = 1
-            window2 = Tk()
+            #window2 = Tk()
+            window2 = Toplevel()
             window2.title("Visualization")
-            window2.geometry('500x500')
+            window2.geometry('900x500')
             window2.minsize(500,500)
             window2.maxsize(1000,1000)
             L1 = Label(window2, text=f"Graph of {var} against {var_bg}", bg="black",fg='white', font=('Helvetica',10,'bold'),relief='sunken')
             L1.pack(fill=X)
-            window.destroy()
+            image1 = Image.open(k+".JPG").resize((800,400), Image.ANTIALIAS)
+            img = ImageTk.PhotoImage(image1)
+            panel = Label(window2, image = img)
+            panel.pack(side = "bottom", fill="both",expand="yes")
+            #window.destroy()
             window2.mainloop()
             break
     if not check:
