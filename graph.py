@@ -1,20 +1,7 @@
 import matplotlib.pyplot as plt
+import parse
 
-new_structure = {
-    "Flight Modes":{
-                    'FLTMODE1': {'time': '144362902', 'value': 2.0},
-                  'FLTMODE2': {'time': '144362921', 'value': 5.0},
-                  'FLTMODE3': {'time': '144362939', 'value': 3.0},
-                  'FLTMODE4': {'time': '144362958', 'value': 6.0},
-                  'FLTMODE5': {'time': '144362977', 'value': 6.0},
-                  'FLTMODE6': {'time': '144362996', 'value': 6.0},
-                  },
-    "Parameters":{
-        'Altitude': {'time': [144625462.0, 144625483.0,144656671.0,144656691.0,144656738.0,144656759.0,144656781.0,144656802.0,144656823.0,144656844.0,144657046.0,144657067.0,144657088.0,144657109.0],
-                             'value': [217.33999633789062,10.0,12.0,12.0,20.0,14.0,12.0,17.0,17.0,20.0,20.0,20.0,12.0,0.0],
-                    },
-    }
-}
+new_structure = parse.parse()
 
 # x axis values and y axis values for Flight Mode
 x = []

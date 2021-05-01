@@ -5,11 +5,11 @@ from PIL import ImageTk, Image
 DATA = {
     "FlightMode":{
         "FLTMODE1": 2.0,
-        "FLTMODE1": 5.0,
-        "FLTMODE1": 3.0,
-        "FLTMODE1": 6.0,
-        "FLTMODE1": 6.0,
-        "FLTMODE1": 6.0},
+        "FLTMODE2": 5.0,
+        "FLTMODE3": 3.0,
+        "FLTMODE4": 6.0,
+        "FLTMODE5": 6.0,
+        "FLTMODE6": 6.0},
     "Parameter":{
         "Altitude" : [100,200,200,300,400,401,300,200,20],
         "Temperature": [100,200,200,300,400,401,300,200,20],
@@ -17,6 +17,7 @@ DATA = {
     }
 }
 
+# Uppercase
 path_drone = "drone.jpg"
 alt = "Altitude.JPG"
 volt = "Battery.JPG"
