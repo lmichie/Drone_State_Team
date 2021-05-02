@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 import sys
-import re
 import os
 import requests
 import pprint
 
-url = 'https://yld.me/raw/bUAw.txt'
+url = 'https://yld.me/raw/bH38.csv'
 new_structure = {}
-data = {}
-data2 = {}
+mode = {}
+parms = {}
 list_alt = []
 list_time = []
 list_volt=[]
@@ -19,17 +18,20 @@ list_gps_alt=[]
 list_gps_time=[]
 
 def parse():
+	#Read in data from flight log
 	response = requests.get(url)
 	log = response.text
 	for line in log.split('}'):
-		file_line = line[26:]
+		file_line = line[25:]
 		if(file_line.startswith("PARM")):
+			#Get Parm data
 			temp_data = {}
 			parm_name = (file_line.split(':')[2]).split(',')[0].lstrip()
 			if(parm_name.startswith("FLT")):
+				#Get flight mode & time vlaues
 				temp_data["value"] = float(file_line.split(':')[3].lstrip())
 				temp_data["time"] = (file_line.split(':')[1]).split(',')[0].lstrip()
-				data[parm_name] = temp_data
+				mode[parm_name] = temp_data
 		if(file_line.startswith("CMD")):
 			list_alt.append(float(file_line.split(':')[11].lstrip()))
 			# Add a list of time corresponding to the altitude value
@@ -56,23 +58,26 @@ def parse():
 			list_gps_time.append(file_line.split(':')[1].split(',')[0].lstrip())
 
 		
-	data2["Altitude"] = {
+	parms["Altitude"] = {
 		"value":list_alt,
 		"time":list_time,
 	}
-	data2["Current"]={
+	parms["Current"]={
 		"volt":list_volt,
 		"time": list_curr_time
 	}
-	data2["Pressure"]={
+	parms["Pressure"]={
 		"pressure":list_press,
 		"time":list_baro_time
 	}
-	data2["GPS"]={
+	parms["GPS"]={
 		"altitude":list_gps_alt,
 		"time":list_gps_time
 	}
-	new_structure["Flight Modes"] = data
-	new_structure["Parameters"] = data2
+	new_structure["Flight Modes"] = mode
+	new_structure["Parameters"] = parms
 	pprint.pprint(new_structure)
 	return new_structure
+
+if __name__ == '__main__':
+    parse()
