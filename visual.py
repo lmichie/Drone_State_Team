@@ -2,20 +2,29 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
-DATA = {
-    "FlightMode":{
-        "FLTMODE1": 2.0,
-        "FLTMODE2": 5.0,
-        "FLTMODE3": 3.0,
-        "FLTMODE4": 6.0,
-        "FLTMODE5": 6.0,
-        "FLTMODE6": 6.0},
-    "Parameter":{
-        "Altitude" : [100,200,200,300,400,401,300,200,20],
-        "Temperature": [100,200,200,300,400,401,300,200,20],
-        "Battery" : [100,200,200,300,400,401,300,200,20],
-    }
-}
+import parse
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+
+DATA = parse.parse()
+def plot(var):  
+    # the figure that will contain the plot
+    fig = Figure(figsize = (5, 5),dpi = 100)
+    # List of x's and y's
+    x = []
+    y = []
+    for i in range(1,7):
+        x.append(float(DATA["Flight Modes"][f"FLTMODE{i}"]["time"]))
+        y.append(DATA["Flight Modes"][f"FLTMODE{i}"]["value"]) 
+    x_var = DATA["Parameters"][var]["time"]
+    y_var = DATA["Parameters"][var]["value"] 
+    # adding the subplot
+    plot1 = fig.add_subplot()  
+    # plotting the graph
+    plot1.plot(x, y,label = "Modes")
+    plot1.plot(x_var, y_var, label = var)
+    plot1.set(xlabel='Time', ylabel='Values', title='Graph')
+    return fig
 
 # Uppercase
 path_drone = "drone.jpg"
@@ -44,7 +53,7 @@ def draw():
     var = var_entry.get()
     var_bg = var_entry2.get()
     check = 0
-    for k,v in DATA["Parameter"].items():
+    for k,v in DATA["Parameters"].items():
         if k == var_bg and v:
             #messagebox.showinfo("It works!","Eligible parameter to draw")
             check = 1
@@ -56,10 +65,24 @@ def draw():
             window2.maxsize(1000,1000)
             L1 = Label(window2, text=f"Graph of {var} against {var_bg}", bg="black",fg='white', font=('Helvetica',10,'bold'),relief='sunken')
             L1.pack(fill=X)
-            image1 = Image.open(k+".JPG").resize((800,400), Image.ANTIALIAS)
-            img = ImageTk.PhotoImage(image1)
-            panel = Label(window2, image = img)
-            panel.pack(side = "bottom", fill="both",expand="yes")
+            # Obtain Figure object from plot() function
+            graph = plot(var_bg)
+            # creating the Tkinter canvas
+            # containing the Matplotlib figure
+            canvas = FigureCanvasTkAgg(graph,master = window2)  
+            canvas.draw()
+            # placing the canvas on the Tkinter window
+            canvas.get_tk_widget().pack()
+            # creating the Matplotlib toolbar
+            toolbar = NavigationToolbar2Tk(canvas,window2)
+            toolbar.update() 
+            # placing the toolbar on the Tkinter window
+            canvas.get_tk_widget().pack()
+
+            #image1 = Image.open(k+".JPG").resize((800,400), Image.ANTIALIAS)
+            #img = ImageTk.PhotoImage(image1)
+            #panel = Label(window2, image = img)
+            #panel.pack(side = "bottom", fill="both",expand="yes")
             #window.destroy()
             window2.mainloop()
             break

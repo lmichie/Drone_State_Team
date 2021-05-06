@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import parse
 
+
 new_structure = parse.parse()
 
 # x axis values and y axis values for Flight Mode
@@ -11,14 +12,18 @@ for i in range(1,7):
     y.append(new_structure["Flight Modes"][f"FLTMODE{i}"]["value"])
 
 # plotting the points 
-plt.plot(x, y, label = "Flight Mode")
+# plt.plot(x, y, label = "Flight Mode")
 
 # X and Y axis for Altitude
-x_alt = new_structure["Parameters"]["Altitude"]["time"][1:-1]
-y_alt = new_structure["Parameters"]["Altitude"]["value"][1:-1]
+x_alt = new_structure["Parameters"]["GPS"]["time"]
+y_alt = new_structure["Parameters"]["GPS"]["altitude"]
+
+x_pres = new_structure["Parameters"]["Pressure"]["pressure"]
+y_pres = new_structure["Parameters"]["Pressure"]["time"]
 
 # plotting the altitude line
 plt.plot(x_alt, y_alt, label = "Altitude")
+plt.plot(x_pres, y_pres, label = "Pressure")
 
 # naming the x axis
 plt.xlabel('Time')

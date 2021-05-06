@@ -58,26 +58,26 @@ def parse():
 			list_gps_time.append(file_line.split(':')[1].split(',')[0].lstrip())
 
 		
-	parms["Altitude"] = {
+	parms["altitude1"] = {
 		"value":list_alt,
 		"time":list_time,
 	}
-	parms["Current"]={
-		"volt":list_volt,
+	parms["current"]={
+		"value":list_volt,
 		"time": list_curr_time
 	}
-	parms["Pressure"]={
-		"pressure":list_press,
+	parms["pressure"]={
+		"value":list_press,
 		"time":list_baro_time
 	}
-	parms["GPS"]={
-		"altitude":list_gps_alt,
+	parms["altitude2"]={
+		"value":list_gps_alt,
 		"time":list_gps_time
 	}
 	new_structure["Flight Modes"] = mode
 	new_structure["Parameters"] = parms
-	pprint.pprint(new_structure)
 	return new_structure
 
 if __name__ == '__main__':
-    parse()
+	new_structure = parse()
+	pprint.pprint(new_structure)
