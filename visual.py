@@ -1,4 +1,12 @@
-##### TASK = making a tkinter GUI which checks our data logs (dictionary/hash table) and draw a graph #####
+#############################################################
+# CSE 20312 Preternship - Drone State Team
+# File: visual.py
+# Authors: Lindsey Michie, Weike Fang & Emie-Elvire Sabumukama
+# 
+# This file makes a tkinter GUI which checks our data logs
+# (dictionary/hash table) and draws a graph
+##############################################################
+
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image

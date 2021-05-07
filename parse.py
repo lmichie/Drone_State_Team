@@ -1,3 +1,12 @@
+#############################################################
+# CSE 20312 Preternship - Drone State Team
+# File: parse.py
+# Authors: Lindsey Michie, Weike Fang & Emie-Elvire Sabumukama
+# 
+# This file contains the method to parse the raw flight log
+# data and to store/organize it into a new data structure.
+##############################################################
+
 #!/usr/bin/env python3
 import sys
 import os

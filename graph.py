@@ -1,3 +1,12 @@
+#############################################################
+# CSE 20312 Preternship - Drone State Team
+# File: graph.py
+# Authors: Lindsey Michie, Weike Fang & Emie-Elvire Sabumukama
+# 
+# This file loads the new data structure created by parse.py
+# and uses matplot to graph parameters.
+##############################################################
+
 import matplotlib.pyplot as plt
 import parse
 
