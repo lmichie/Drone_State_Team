@@ -15,30 +15,35 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
 # Globals
-path_drone = "drone.jpg"
-alt = "Altitude.JPG"
-volt = "Battery.JPG"
-temperature = "Temperature.JPG"
+PATH_DRONE = "drone.jpg"
 DATA = parse.parse()
 
 # Functions
 def plot(var):  
     # the figure that will contain the plot
-    fig = Figure(figsize = (5, 5),dpi = 100)
+    fig = Figure(figsize = (5, 5),dpi = 100, tight_layout=True)
     # List of x's and y's
-    x = []
-    y = []
+    x_mode = []
+    y_mode = []
     for i in range(1,7):
-        x.append(float(DATA["Flight Modes"][f"FLTMODE{i}"]["time"]))
-        y.append(DATA["Flight Modes"][f"FLTMODE{i}"]["value"]) 
+        x_mode.append(float(DATA["Flight Modes"][f"FLTMODE{i}"]["time"]))
+        y_mode.append(DATA["Flight Modes"][f"FLTMODE{i}"]["value"]) 
     x_var = DATA["Parameters"][var]["time"]
     y_var = DATA["Parameters"][var]["value"] 
     # adding the subplot
     plot1 = fig.add_subplot()  
-    # plotting the graph
-    plot1.plot(x, y,label = "Modes")
-    plot1.plot(x_var, y_var, label = var)
-    plot1.set(xlabel='Time', ylabel='Values', title='Graph')
+    # plotting the curve for Flight Modes
+    plot1.set_xlabel('Time(s)')
+    plot1.set_ylabel('Modes', color = 'tab:red')
+    plot1.plot(x_mode, y_mode,label = "Modes", color = 'tab:red')
+    plot1.tick_params(axis='y', labelcolor='tab:red')
+    # plot background variables
+    plot2 = plot1.twinx()
+    plot2.set_ylabel(var, color='tab:blue')
+    plot2.plot(x_var, y_var, label = var, color = 'tab:blue')
+    plot2.tick_params(axis='y', labelcolor='tab:blue')
+    #fig.tight_layout()
+    # plot1.set(xlabel='Time', ylabel='Values', title='Graph')
     return fig
 
 def draw():
@@ -49,14 +54,13 @@ def draw():
         if k == var_bg and v:
             #messagebox.showinfo("It works!","Eligible parameter to draw")
             check = 1
-            #window2 = Tk()
             window2 = Toplevel()
             window2.title("Visualization")
             window2.geometry('900x500')
             window2.minsize(500,500)
             window2.maxsize(1000,1000)
-            L1 = Label(window2, text=f"Graph of {var} against {var_bg}", bg="black",fg='white', font=('Helvetica',10,'bold'),relief='sunken')
-            L1.pack(fill=X)
+            title_win2 = Label(window2, text=f"Graph of {var} against {var_bg}", bg="black",fg='white', font=('Helvetica',10,'bold'),relief='sunken')
+            title_win2.pack(fill=X)
             # Obtain Figure object from plot() function
             graph = plot(var_bg)
             # creating the Tkinter canvas
@@ -70,12 +74,6 @@ def draw():
             toolbar.update() 
             # placing the toolbar on the Tkinter window
             canvas.get_tk_widget().pack()
-
-            #image1 = Image.open(k+".JPG").resize((800,400), Image.ANTIALIAS)
-            #img = ImageTk.PhotoImage(image1)
-            #panel = Label(window2, image = img)
-            #panel.pack(side = "bottom", fill="both",expand="yes")
-            #window.destroy()
             window2.mainloop()
             break
     if not check:
@@ -103,12 +101,12 @@ if __name__ == '__main__':
 
     # Adding a label to your window
     # Features = background, foreground, borderwidth, relief, font(font, fontsize,..)
-    label1 = Label(window,text="Visualization of Flight Mode", bg="black", fg="white", 
+    title = Label(window,text="Visualization of Flight Mode", bg="black", fg="white", 
                     font=('Helvetica',20,'bold'),#width=500, height=500, 
                     borderwidth=20,relief='sunken') #relief: proove,sunken,flat,raised,solid
     # Features of pack() anchor=(ne,nw,se,sw,n,e,w,s), fill=(X,Y,BOTH)
     # padx, pady ,ipadx, ipady - internal padding
-    label1.pack(fill=X)
+    title.pack(fill=X)
 
     var_label = Label(window,text="Variable: ")
     var_label.pack(anchor='w')
@@ -124,15 +122,15 @@ if __name__ == '__main__':
     var_entry2.pack(anchor='w')
 
 
-    # Adding a button to your tkinter window
+    # Adding a button (draw) to our main tkinter window
+    draw_button = Button(window,text="Draw", command=draw)
+    draw_button.pack()
 
-    Button1 = Button(window,text="Draw", command=draw)
-    Button1.pack()
-
-    image1 = Image.open(path_drone).resize((300,300), Image.ANTIALIAS)
-    img = ImageTk.PhotoImage(image1)
-    panel = Label(window, image = img)
-    panel.pack(side = "bottom", fill="both",expand="yes")
+    # Adding the drone image to our main window
+    drone_image = Image.open(PATH_DRONE).resize((300,300), Image.ANTIALIAS)
+    drone_img = ImageTk.PhotoImage(drone_image)
+    drone_panel = Label(window, image = drone_img)
+    drone_panel.pack(side = "bottom", fill="both",expand="yes")
 
     # Put it in a loop
     window.mainloop()
