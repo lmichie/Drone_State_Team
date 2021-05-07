@@ -21,7 +21,7 @@ DATA = parse.parse()
 # Functions
 def plot(var):  
     # the figure that will contain the plot
-    fig = Figure(figsize = (5, 5),dpi = 100)
+    fig = Figure(figsize = (5, 5),dpi = 100, tight_layout=True)
     # List of x's and y's
     x_mode = []
     y_mode = []
@@ -42,7 +42,7 @@ def plot(var):
     plot2.set_ylabel(var, color='tab:blue')
     plot2.plot(x_var, y_var, label = var, color = 'tab:blue')
     plot2.tick_params(axis='y', labelcolor='tab:blue')
-    fig.tight_layout()
+    #fig.tight_layout()
     # plot1.set(xlabel='Time', ylabel='Values', title='Graph')
     return fig
 
