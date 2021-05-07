@@ -32,35 +32,35 @@ def parse():
 	log = response.text
 	for line in log.split('}'):
 		file_line = line[25:]
-		if(file_line.startswith("PARM")):
+		if file_line.startswith("PARM"):
 			#Get Parm data
 			temp_data = {}
 			parm_name = (file_line.split(':')[2]).split(',')[0].lstrip()
-			if(parm_name.startswith("FLT")):
+			if parm_name.startswith("FLT"):
 				#Get flight mode & time vlaues
 				temp_data["value"] = float(file_line.split(':')[3].lstrip())
 				temp_data["time"] = (file_line.split(':')[1]).split(',')[0].lstrip()
 				mode[parm_name] = temp_data
-		if(file_line.startswith("CMD")):
+		if file_line.startswith("CMD"):
 			list_alt.append(float(file_line.split(':')[11].lstrip()))
 			# Add a list of time corresponding to the altitude value
 			str = [letter for letter in file_line.split(':')[1] if letter.isnumeric()]
 			str1 = ''.join(str)
 			list_time.append(float(str1))
 
-		if(file_line.startswith("CURR")):
+		if file_line.startswith("CURR"):
 			#get volt values		
 			list_volt.append(float(file_line.split(':')[2].split(',')[0].lstrip()))
 			#get time values
 			list_curr_time.append(file_line.split(':')[1].split(',')[0].lstrip())
 
-		if(file_line.startswith("BARO")):
+		if file_line.startswith("BARO"):
 			#get pressure
 			list_press.append(float(file_line.split(':')[3].split(',')[0].lstrip()))
 			#get time values
 			list_baro_time.append(file_line.split(':')[1].split(',')[0].lstrip())
 		
-		if(file_line.startswith("GPS")):
+		if file_line.startswith("GPS"):
 			#get altitude
 			list_gps_alt.append(float(file_line.split(':')[9].split(',')[0].lstrip()))
 			#get time values
