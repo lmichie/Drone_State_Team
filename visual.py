@@ -32,10 +32,18 @@ def plot(var):
     y_var = DATA["Parameters"][var]["value"] 
     # adding the subplot
     plot1 = fig.add_subplot()  
-    # plotting the graph
-    plot1.plot(x_mode, y_mode,label = "Modes")
-    plot1.plot(x_var, y_var, label = var)
-    plot1.set(xlabel='Time', ylabel='Values', title='Graph')
+    # plotting the curve for Flight Modes
+    plot1.set_xlabel('Time(s)')
+    plot1.set_ylabel('Modes', color = 'tab:red')
+    plot1.plot(x_mode, y_mode,label = "Modes", color = 'tab:red')
+    plot1.tick_params(axis='y', labelcolor='tab:red')
+    # plot background variables
+    plot2 = plot1.twinx()
+    plot2.set_ylabel(var, color='tab:blue')
+    plot2.plot(x_var, y_var, label = var, color = 'tab:blue')
+    plot2.tick_params(axis='y', labelcolor='tab:blue')
+    fig.tight_layout()
+    # plot1.set(xlabel='Time', ylabel='Values', title='Graph')
     return fig
 
 def draw():
