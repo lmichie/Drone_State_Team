@@ -24,11 +24,11 @@ for i in range(1,7):
 # plt.plot(x, y, label = "Flight Mode")
 
 # X and Y axis for Altitude
-x_alt = new_structure["Parameters"]["GPS"]["time"]
-y_alt = new_structure["Parameters"]["GPS"]["altitude"]
+x_alt = new_structure["Parameters"]["altitude2"]["time"]
+y_alt = new_structure["Parameters"]["altitude2"]["value"]
 
-x_pres = new_structure["Parameters"]["Pressure"]["pressure"]
-y_pres = new_structure["Parameters"]["Pressure"]["time"]
+x_pres = new_structure["Parameters"]["pressure"]["value"]
+y_pres = new_structure["Parameters"]["pressure"]["time"]
 
 # plotting the altitude line
 plt.plot(x_alt, y_alt, label = "Altitude")
