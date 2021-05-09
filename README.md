@@ -15,7 +15,7 @@ The objective of the Drone State Project is to build a [Python GUI](https://real
 
 The implementation of this project is organized into two main python codes: `parse.py` and `visual.py`.
 
-`parse.py` contains the function to parse a url to a new organized dictionary (`parsed_data.txt` *contains an example of the new data structure the code produces*) for select parameters (altitude, current, pressure, altitude from the gps, and flight modes). **Note:** `parse` is only compatable with the sample data logs we were provided at the beginning of our project. 
+`parse.py` contains the function to parse a url to a new organized dictionary (`parsed_data.txt` *contains an example of the new data structure the code produces*) for select parameters (altitude, current, pressure, altitude from the gps, and flight modes). **Note:** `parse` is only compatible with the sample data logs we were provided at the beginning of our project. 
 
 `visual.py` creates a tkinter python GUI window that draws graphs based on the parsed data. First, it imports needed libraries for the python GUI and the parse library that links the parsed data to the `visual.py` code. Then, two functions define the plotting specifications and a main function opens the windows and sets the plotting specifications.
 
@@ -24,4 +24,4 @@ The implementation of this project is organized into two main python codes: `par
 
 ### Usage
  
-When the window opens, the user can input a variable and a background variable. As the code is currently written, the variable is "Flight Modes" which is plotted in parallel  with a chosen background variable (both plotted against time). The background variable can be chosen from the different parsed parameters such as current, pressure, etc.) 
+When the window opens, the user can input a variable and a background variable. As the code is currently written, the variable is "Flight Modes" which is plotted in parallel  with a chosen background variable (both plotted against time). The background variable can be chosen from the different parsed parameters such as current, pressure, etc. 
