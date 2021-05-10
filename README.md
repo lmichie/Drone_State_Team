@@ -22,6 +22,16 @@ The implementation of this project is organized into two main python codes: `par
 *example output*
 ![*example output*](https://lh3.googleusercontent.com/3uyATFz48eITWMIYa43MaiLjFNmSqv970jdYvtbx97xkgs49rdijOd88njFcBnuaRBkgVAHvyEDfkLReFmeels2xndO0AWjzYnZcmX1_G27p3e29BdbVO-HU9YYDZEHwHsdQQjKN)
 
-### Usage
+## Usage
  
-When the window opens, the user can input a variable and a background variable. As the code is currently written, the variable is "Flight Modes" which is plotted in parallel  with a chosen background variable (both plotted against time). The background variable can be chosen from the different parsed parameters such as current, pressure, etc. 
+When the window opens, the user can input a variable and a background variable. As the code is currently written, the variable is "Flight Modes" which is plotted in parallel  with a chosen background variable (both plotted against time). The background variable can be chosen from the different parsed parameters such as current, pressure, etc.
+
+## Installation
+	
+To replicate our project follow the following commands on your terminal:
+
+```Bash
+wget -O setup.sh https://raw.githubusercontent.com/lmichie/Drone_State_Team/main/drone_state_team/setup.sh?token=AQUX25TVDOQNHDMNE5TEIETAUG5DU
+chmod a+rx setup.sh
+./setup.sh 
+```
