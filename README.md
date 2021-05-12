@@ -35,3 +35,33 @@ wget -O setup.sh https://raw.githubusercontent.com/lmichie/Drone_State_Team/main
 chmod a+rx setup.sh
 ./setup.sh 
 ```
+
+## Requirements
+
+Graphic application (such as XMing on Windows)
+
+Python Environment
+
+Required Python Packages:
+- tkinter
+- matplotlib
+- PIL (Python Imaging Library)
+- sys
+- os
+- request
+
+## Sample Run
+
+*On Ubuntu*
+
+Steps:
+1. Open XMing or other graphic applications in the background.
+2. Set DISPLAY environment variables temporarily (export DISPLAY=localhost:0.0) or permanently
+3. Run python code visual.py, in which parse module is used to extract key data
+4. Enter the main variable (Flight Modes) and a background variable (pressure, current, etc.)
+
+[![ubuntu1.jpg](https://i.postimg.cc/90ZcJwzH/ubuntu1.jpg)](https://postimg.cc/5Q9ct0ws)
+
+*On VSCode*
+
+Once all the packages are downloaded, the visualization can run using the terminal.
