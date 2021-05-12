@@ -7,6 +7,7 @@
 # (dictionary/hash table) and draws a graph
 ##############################################################
 
+import tkinter
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
@@ -73,7 +74,8 @@ def draw():
             toolbar = NavigationToolbar2Tk(canvas,window2)
             toolbar.update() 
             # placing the toolbar on the Tkinter window
-            canvas.get_tk_widget().pack()
+            # canvas.get_tk_widget().pack()
+            canvas._tkcanvas.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=True)
             window2.mainloop()
             break
     if not check:
