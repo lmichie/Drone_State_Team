@@ -20,7 +20,7 @@ PATH_DRONE = "drone.jpg"
 DATA = parse.parse()
 
 # Functions
-def plot(var):  
+def plot(var, x):  
     # the figure that will contain the plot
     fig = Figure(figsize = (5, 5),dpi = 100, tight_layout=True)
     # List of x's and y's
@@ -32,24 +32,37 @@ def plot(var):
     x_var = DATA["Parameters"][var]["time"]
     y_var = DATA["Parameters"][var]["value"] 
     # adding the subplot
-    plot1 = fig.add_subplot()  
-    # plotting the curve for Flight Modes
-    plot1.set_xlabel('Time(s)')
-    plot1.set_ylabel('Modes', color = 'tab:red')
-    plot1.plot(x_mode, y_mode,label = "Modes", color = 'tab:red')
-    plot1.tick_params(axis='y', labelcolor='tab:red')
-    # plot background variables
-    plot2 = plot1.twinx()
-    plot2.set_ylabel(var, color='tab:blue')
-    plot2.plot(x_var, y_var, label = var, color = 'tab:blue')
-    plot2.tick_params(axis='y', labelcolor='tab:blue')
-    #fig.tight_layout()
+    plot1 = fig.add_subplot()
+    if x == "normalized time":
+        # plotting the curve for Flight Modes
+        plot1.set_xlabel('Normalized Time')
+        plot1.set_ylabel('Modes', color = 'tab:red')
+        plot1.plot(y_mode,label = "Modes", color = 'tab:red')
+        plot1.tick_params(axis='y', labelcolor='tab:red')
+        # plot background variables
+        plot2 = plot1.twinx()
+        plot2.set_ylabel(var, color='tab:blue')
+        plot2.plot(y_var, label = var, color = 'tab:blue')
+        plot2.tick_params(axis='y', labelcolor='tab:blue')
+    else:
+        # plotting the curve for Flight Modes
+        plot1.set_xlabel('Time(s)')
+        plot1.set_ylabel('Modes', color = 'tab:red')
+        plot1.plot(x_mode, y_mode,label = "Modes", color = 'tab:red')
+        plot1.tick_params(axis='y', labelcolor='tab:red')
+        # plot background variables
+        plot2 = plot1.twinx()
+        plot2.set_ylabel(var, color='tab:blue')
+        plot2.plot(x_var, y_var, label = var, color = 'tab:blue')
+        plot2.tick_params(axis='y', labelcolor='tab:blue')
+    # fig.tight_layout()
     # plot1.set(xlabel='Time', ylabel='Values', title='Graph')
     return fig
 
 def draw():
     var = var_entry.get()
     var_bg = var_entry2.get()
+    x = x_axis.get()
     check = 0
     for k,v in DATA["Parameters"].items():
         if k == var_bg and v:
@@ -63,7 +76,7 @@ def draw():
             title_win2 = Label(window2, text=f"Graph of {var} against {var_bg}", bg="black",fg='white', font=('Helvetica',10,'bold'),relief='sunken')
             title_win2.pack(fill=X)
             # Obtain Figure object from plot() function
-            graph = plot(var_bg)
+            graph = plot(var_bg,x)
             # creating the Tkinter canvas
             # containing the Matplotlib figure
             canvas = FigureCanvasTkAgg(graph,master = window2)  
@@ -80,6 +93,8 @@ def draw():
             break
     if not check:
         messagebox.showerror("Error",f"There is no variable {var_bg}")
+def show_choice(selection):
+    print(selection)
 
 # Main
 if __name__ == '__main__':
@@ -123,6 +138,14 @@ if __name__ == '__main__':
     var_entry2 = Entry(window)
     var_entry2.pack(anchor='w')
 
+    # Adding a drop down menu for choosing x-axis
+    x_axis = StringVar(window)
+    x_axis.set("real time")
+    choices = {"real time", "normalized time"}
+    time = OptionMenu(window, x_axis, *choices, command=show_choice)
+    time_label = Label(window, text="X-axis")
+    time_label.pack(anchor='w')
+    time.pack(anchor='w')
 
     # Adding a button (draw) to our main tkinter window
     draw_button = Button(window,text="Draw", command=draw)
